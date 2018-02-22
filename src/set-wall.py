@@ -44,7 +44,7 @@ def set_wall(wall_dir):
         else:
             command += " " + wall_dir + "/small/" + small.pop()
     os.system(command)
-    time.sleep(60)
+    time.sleep(900)
 
 if __name__ == "__main__":
     wall_dir = sys.argv[1]
