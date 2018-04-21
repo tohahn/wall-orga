@@ -10,6 +10,8 @@ def prepare_dir(wall_dir):
         os.mkdir('./medium')
     if not os.path.exists('./small'):
         os.mkdir('./small')
+    if not os.path.exists('./tiny'):
+        os.mkdir('./tiny')
     return wall_list
 
 def sort_images(wall_list):
@@ -18,10 +20,12 @@ def sort_images(wall_list):
         width, height = im.size
         if width >= 3840 and height >= 2160:
             os.rename(wall, './big/' + os.path.basename(wall))
-        elif width >= 1920 and height >= 1080:
+        elif width >= 2560 and height >= 1440:
             os.rename(wall, './medium/' + os.path.basename(wall))
-        else:
+        elif width >= 1920 and height >= 1080:
             os.rename(wall, './small/' + os.path.basename(wall))
+        else:
+            os.rename(wall, './tiny/' + os.path.basename(wall))
 
 if __name__ == "__main__":
     wall_dir = sys.argv[1]

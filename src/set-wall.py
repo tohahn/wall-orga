@@ -8,10 +8,12 @@ def get_displays(display):
         height = screen.height
         if width >= 3840 and height >= 2160:
             displays.append('big')
-        elif width >= 1920 and height >= 1080:
+        elif width >= 2560 and height >= 1440:
             displays.append('medium')
-        else:
+        elif width >= 1920 and height >= 1080:
             displays.append('small')
+        else:
+            displays.append('tiny')
 
     return displays
 
@@ -24,8 +26,10 @@ def get_wallpapers(wall_dir):
     random.shuffle(medium)
     small = [f for f in os.listdir('./small') if (f.endswith('.jpg') or f.endswith('.jpeg') or f.endswith('.png'))]
     random.shuffle(small)
+    tiny = [f for f in os.listdir('./tiny') if (f.endswith('.jpg') or f.endswith('.jpeg') or f.endswith('.png'))]
+    random.shuffle(tiny)
 
-    return (big, medium, small)
+    return (big, medium, small, tiny)
 
 def set_wall(wall_dir):
     platform = pyglet.window.get_platform()
@@ -33,7 +37,7 @@ def set_wall(wall_dir):
 
     displays = get_displays(display)
     
-    big, medium, small = get_wallpapers(wall_dir)
+    big, medium, small, tiny = get_wallpapers(wall_dir)
 
     command = "feh --bg-fill"
     for dsp in displays:
@@ -41,8 +45,10 @@ def set_wall(wall_dir):
             command += " " + wall_dir + "/big/" + big.pop()
         elif dsp == "medium":
             command += " " + wall_dir + "/medium/" + medium.pop()
-        else:
+        elif dsp == "small":
             command += " " + wall_dir + "/small/" + small.pop()
+        else:
+            command += " " + wall_dir + "/tiny/" + tiny.pop()
     os.system(command)
     time.sleep(900)
 
